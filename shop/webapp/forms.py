@@ -16,3 +16,7 @@ class ProductForm(forms.ModelForm):
         if product == description:
             raise ValidationError("Text of description should not duplicate it's product text")
         return cleaned_data
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False)

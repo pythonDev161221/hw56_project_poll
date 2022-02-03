@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from webapp.forms import ProductForm
+from webapp.forms import ProductForm, SearchForm
 from webapp.models import Product
 
 
@@ -15,10 +15,18 @@ class ProductListView(ListView):
     paginate_by = 5
     paginate_orphans = 1
 
+
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(balance__gt=0).order_by('category', 'product')
         return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        form = SearchForm()
+        print(form)
+        kwargs['form'] = form
+        return kwargs
 
 
 
