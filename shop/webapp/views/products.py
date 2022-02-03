@@ -13,6 +13,11 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(balance__gt=0)
+        return queryset
+
 
 class ProductDetailView(DetailView):
     template_name = 'products/product_detail_view.html'
