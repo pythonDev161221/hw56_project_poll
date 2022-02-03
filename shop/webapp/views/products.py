@@ -6,14 +6,16 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from webapp.forms import ProductForm, SearchForm
 from webapp.models import Product
+from webapp.views.base import SearchView
 
 
-class ProductListView(ListView):
+class ProductListView(SearchView):
     template_name = 'products/product_list_view.html'
     model = Product
     context_object_name = 'products'
-    paginate_by = 5
+    paginate_by = 2
     paginate_orphans = 1
+    search_fields = ["product__icontains", "description__icontains"]
 
 
     def get_queryset(self):
@@ -24,8 +26,10 @@ class ProductListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         form = SearchForm()
-        print(form)
         kwargs['form'] = form
+        print(kwargs)
+        # if self.kwargs.get('search'):
+
         return kwargs
 
 

@@ -19,4 +19,4 @@ class ProductForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    search = forms.CharField(max_length=100, required=False)
+    search = forms.CharField(max_length=100, required=False, label='Найти')
