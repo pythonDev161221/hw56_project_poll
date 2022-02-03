@@ -15,8 +15,9 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(balance__gt=0)
+        queryset = queryset.filter(balance__gt=0).order_by('category', 'product')
         return queryset
+
 
 
 class ProductDetailView(DetailView):
