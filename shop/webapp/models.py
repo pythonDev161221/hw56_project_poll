@@ -6,6 +6,8 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 
+from webapp.validators import MinValueValidator
+
 CHOOSE_CATEGORY = [('other', 'разное'), ('clothes', 'одежда'), ('equipment', 'оборудование'), ('information', 'информативные')]
 
 
@@ -14,8 +16,8 @@ class Product(models.Model):
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name="описание")
     category = models.CharField(max_length=100, null=False, blank=False, choices=CHOOSE_CATEGORY,
                                 verbose_name="категории", default=CHOOSE_CATEGORY[0])
-    balance = models.PositiveIntegerField(null=False, blank=False, verbose_name="остаток")
-    price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="цена", null=False, blank=False)
+    balance = models.PositiveIntegerField(null=False, blank=False, verbose_name="остаток", validators=(MinValueValidator(0),))
+    price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="цена", null=False, blank=False, validators=(MinValueValidator(0),))
 
     def get_absolute_url(self):
         return reverse('product_list_view')
