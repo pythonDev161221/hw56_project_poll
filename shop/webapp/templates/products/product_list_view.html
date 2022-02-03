@@ -13,7 +13,8 @@
     <a href="{% url 'product_detail_view' product.pk %}">
     {{ product.product }}: {{ product.price }}
     </a> ***
-    <a href="{% url 'product_update_view' product.pk %}">Update</a>
+    <a href="{% url 'product_update_view' product.pk %}">Update</a> |
+    <a href="{% url 'product_delete_view' product.pk %}">Delete</a>
     </p>
 {% endfor %}
 {% endblock %}
