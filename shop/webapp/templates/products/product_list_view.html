@@ -17,4 +17,7 @@
     <a href="{% url 'product_delete_view' product.pk %}">Delete</a>
     </p>
 {% endfor %}
+
+{% include 'partial/pagintation.html' %}
+
 {% endblock %}
