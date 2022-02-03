@@ -13,24 +13,23 @@ class ProductListView(SearchView):
     template_name = 'products/product_list_view.html'
     model = Product
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 5
     paginate_orphans = 1
     search_fields = ["product__icontains", "description__icontains"]
-
 
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(balance__gt=0).order_by('category', 'product')
         return queryset
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        kwargs = super().get_context_data(**kwargs)
-        form = SearchForm()
-        kwargs['form'] = form
-        print(kwargs)
-        # if self.kwargs.get('search'):
-
-        return kwargs
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     kwargs = super().get_context_data(**kwargs)
+    #     form = SearchForm()
+    #     kwargs['form'] = form
+    #     print(kwargs)
+    #     # if self.kwargs.get('search'):
+    #
+    #     return kwargs
 
 
 

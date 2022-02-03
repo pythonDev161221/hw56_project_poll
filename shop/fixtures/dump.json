@@ -1,2 +1,101 @@
 [
+{
+    "model": "webapp.product",
+    "pk": 1,
+    "fields": {
+        "product": "product 23",
+        "description": "",
+        "category": "clothes",
+        "balance": 2,
+        "price": "100.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 2,
+    "fields": {
+        "product": "white jacket",
+        "description": "good quality cotton",
+        "category": "other",
+        "balance": 123,
+        "price": "23.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 3,
+    "fields": {
+        "product": "shirt",
+        "description": "Green 95% cotton",
+        "category": "clothes",
+        "balance": 129,
+        "price": "123.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 5,
+    "fields": {
+        "product": "book of Jungle",
+        "description": "good book",
+        "category": "information",
+        "balance": 0,
+        "price": "123.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 6,
+    "fields": {
+        "product": "aaa",
+        "description": "dfgsdg",
+        "category": "clothes",
+        "balance": 23,
+        "price": "123.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 7,
+    "fields": {
+        "product": "zzz",
+        "description": "zzzz",
+        "category": "clothes",
+        "balance": 234,
+        "price": "23.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 8,
+    "fields": {
+        "product": "grserg",
+        "description": "sdfgrg",
+        "category": "other",
+        "balance": 55,
+        "price": "123.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 9,
+    "fields": {
+        "product": "dfsgs",
+        "description": "sdfg",
+        "category": "other",
+        "balance": 2,
+        "price": "23.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 10,
+    "fields": {
+        "product": "asdf",
+        "description": "asdfsf",
+        "category": "other",
+        "balance": 123,
+        "price": "23.00"
+    }
+}
 ]
