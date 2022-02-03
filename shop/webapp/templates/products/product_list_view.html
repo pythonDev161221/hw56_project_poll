@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{% url 'product_create_view' %}">CreateProduct</a>
+</li>
+{% endblock %}
+
 
 {% block content %}
 {% for product in products %}
+    <p>
     <a href="{% url 'product_detail_view' product.pk %}">
     {{ product.product }}: {{ product.price }}
     </a>
+    </p>
 {% endfor %}
 {% endblock %}

@@ -7,9 +7,10 @@
 {% endblock %}
 
 {% block content %}
-    <p>product: {{ product.product }}</p>
-    <p>price: {{ product.price }}</p>
-    <p>description: {{ product.description }}</p>
-    <p>balance: {{ product.balance }}</p>
-    <p>category: {{ product.category }}</p>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+    </form>
+
 {% endblock %}
