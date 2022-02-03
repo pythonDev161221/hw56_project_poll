@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{% url 'product_list_view' %}">ProductList</a>
+</li>
+{% endblock %}
+
+{% block content %}
+    <p>{{ product.product }}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.balance }}</p>
+    <p>{{ product.category }}</p>
+{% endblock %}

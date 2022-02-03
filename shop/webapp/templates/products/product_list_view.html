@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 {% for product in products %}
+    <a href="{% url 'product_detail_view' product.pk %}">
     {{ product.product }}: {{ product.price }}
+    </a>
 {% endfor %}
 {% endblock %}

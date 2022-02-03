@@ -4,6 +4,8 @@ from django.db import models
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 CHOOSE_CATEGORY = [('other', 'разное'), ('clothes', 'одежда'), ('equipment', 'оборудование'), ('information', 'информативные')]
 
 
@@ -15,3 +17,8 @@ class Product(models.Model):
     balance = models.PositiveIntegerField(null=False, blank=False, verbose_name="остаток")
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="цена", null=False, blank=False)
 
+    def get_absolute_url(self):
+        return reverse('product_list_view')
+
+    def __str__(self):
+        return f'{self.product}, {self.price}'
