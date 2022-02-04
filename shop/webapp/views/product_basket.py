@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, ListView
 
 from webapp.models import Product, ProductBasket
 
 
-class AddProductView(View):
+class AddProductBasketView(View):
 
     def get(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
@@ -23,4 +23,23 @@ class AddProductView(View):
             product_basket = ProductBasket(product=product, volume=1)
             product_basket.save()
         return redirect('product_list_view')
+
+
+class ProductBasketListView(ListView):
+    template_name = 'product_basket/product_basket_list_view.html'
+    model = ProductBasket
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs = super().get_context_data(object_list=object_list, kwargs=kwargs)
+        products = ProductBasket.objects.all()
+        summ = []
+        for product in products:
+            total = product.product.price * product.volume
+            p_id = product.id
+            total = {'p_id': p_id, 'total': total}
+            summ.append(total)
+        kwargs['summ'] = summ
+
+        return kwargs
+
 
