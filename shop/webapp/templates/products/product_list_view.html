@@ -23,6 +23,10 @@
     </a> ***
     <a href="{% url 'product_update_view' product.pk %}">Update</a> |
     <a href="{% url 'product_delete_view' product.pk %}">Delete</a>
+    *<a href="{% url 'product_basket_template_view' product.pk %}">To Basket</a>*
+{#    <form action="{% url 'product_basket_template_view' product.pk %}" method="get">#}
+{#        <input type="submit" value="To Basket">#}
+{#    </form>#}
     </p>
 {% endfor %}
 

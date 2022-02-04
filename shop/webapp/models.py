@@ -27,7 +27,7 @@ class Product(models.Model):
 
 
 class ProductBasket(models.Model):
-    product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE, related_name='products',
+    product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE, related_name='products_basket',
                                 verbose_name='Корзина')
     volume = models.PositiveIntegerField()
 
