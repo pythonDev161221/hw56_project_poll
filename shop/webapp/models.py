@@ -33,3 +33,18 @@ class ProductBasket(models.Model):
 
     def __str__(self):
         return f'{self.product.product}: {self.volume}'
+
+
+class OrderProduct(models.Model):
+    product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE)
+    order = models.ForeignKey('webapp.Order', on_delete=models.CASCADE)
+    volume = models.PositiveIntegerField()
+
+
+class Order(models.Model):
+    products = models.ManyToManyField('webapp.Product',
+                related_name='orders', through='webapp.OrderProduct')
+    username = models.CharField(max_length=200)
+    phone = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
