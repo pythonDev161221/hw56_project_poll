@@ -24,3 +24,12 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.product}, {self.price}'
+
+
+class ProductBasket(models.Model):
+    product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE, related_name='products',
+                                verbose_name='Корзина')
+    volume = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.product.product}: {self.volume}'
