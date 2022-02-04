@@ -15,6 +15,7 @@
         {{ sum.total }}
         {% endif %}
     {% endfor %}
+    <a href="{% url 'product_basket_delete_view' product.pk %}">Delete</a>
     </p>
 {% endfor %}
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, RedirectView, ListView
+from django.views.generic import TemplateView, RedirectView, ListView, DeleteView
 
 from webapp.models import Product, ProductBasket
 
@@ -42,4 +42,13 @@ class ProductBasketListView(ListView):
 
         return kwargs
 
+
+class ProductBasketDeleteView(DeleteView):
+    model = ProductBasket
+
+    def get(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("product_basket_list_view")
 
