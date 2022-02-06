@@ -33,12 +33,16 @@ class ProductBasketListView(ListView):
         kwargs = super().get_context_data(object_list=object_list, kwargs=kwargs)
         products = ProductBasket.objects.all()
         summ = []
+        a = 0
         for product in products:
             total = product.product.price * product.volume
+            a += total
+            vol = product.volume
             p_id = product.id
-            total = {'p_id': p_id, 'total': total}
+            total = {'p_id': p_id, 'total': total, 'vol': vol}
             summ.append(total)
         kwargs['summ'] = summ
+        kwargs['total'] = a
 
         return kwargs
 

@@ -21,4 +21,7 @@
     <p>description: {{ product.description }}</p>
     <p>balance: {{ product.balance }}</p>
     <p>category: {{ product.category }}</p>
+
+    <a href="{% url 'product_basket_add_view' product.pk %}">
+        <button type="button">To Basket</button></a>
 {% endblock %}
