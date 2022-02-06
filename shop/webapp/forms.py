@@ -25,4 +25,4 @@ class SearchForm(forms.Form):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = []
+        fields = ['username', 'phone', 'address']

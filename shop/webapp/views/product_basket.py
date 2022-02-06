@@ -3,6 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, RedirectView, ListView, DeleteView
 
+from webapp.forms import OrderForm
 from webapp.models import Product, ProductBasket
 
 
@@ -43,6 +44,7 @@ class ProductBasketListView(ListView):
             summ.append(total)
         kwargs['summ'] = summ
         kwargs['total'] = a
+        kwargs['form'] = OrderForm()
 
         return kwargs
 
