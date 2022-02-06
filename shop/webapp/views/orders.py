@@ -1,0 +1,4 @@
+
+
+class OrderCreateView:
+    pass

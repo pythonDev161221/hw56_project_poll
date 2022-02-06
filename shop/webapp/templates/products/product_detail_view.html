@@ -10,6 +10,9 @@
 <li class="nav-item">
   <a class="nav-link" aria-current="page" href="{% url 'product_delete_view' product.pk %}">Delete</a>
 </li>
+<li class="nav-item">
+  <a class="nav-link" aria-current="page" href="{% url 'product_basket_add_view' product.pk %}">To Basket</a>
+</li>
 {% endblock %}
 
 {% block content %}
