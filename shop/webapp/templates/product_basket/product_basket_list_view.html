@@ -25,10 +25,11 @@
     <h5>Итого {{ total }}</h5>
     <form action="{% url 'order_create_view' %}" method="post">
     {% csrf_token %}
-        <p>name: <input type="text" name="username"></p>
-        <p>phone: <input type="number" name="phone"></p>
-        <p>address: <input type="text" name="address"></p>
-        <input type="submit" value="Оформить заказ">
+{#        <p>name: <input type="text" name="username"></p>#}
+{#        <p>phone: <input type="number" name="phone"></p>#}
+{#        <p>address: <input type="text" name="address"></p>#}
+{#        <input type="submit" value="Оформить заказ">#}
+        {% include 'partial/form.html' with button_text="Оформить заказ" %}
         <input type="hidden" name="productbasket_list" value="{{ productbasket_list }}">
     </form>
 
