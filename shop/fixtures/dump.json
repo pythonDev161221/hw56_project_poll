@@ -3,10 +3,10 @@
     "model": "webapp.product",
     "pk": 1,
     "fields": {
-        "product": "product 23",
-        "description": "",
-        "category": "clothes",
-        "balance": 2,
+        "product": "mouse",
+        "description": "reg",
+        "category": "equipment",
+        "balance": 0,
         "price": "100.00"
     }
 },
@@ -50,19 +50,8 @@
         "product": "aaa",
         "description": "dfgsdg",
         "category": "clothes",
-        "balance": 23,
+        "balance": 0,
         "price": "123.00"
-    }
-},
-{
-    "model": "webapp.product",
-    "pk": 7,
-    "fields": {
-        "product": "zzz",
-        "description": "zzzz",
-        "category": "clothes",
-        "balance": 234,
-        "price": "23.00"
     }
 },
 {
@@ -83,7 +72,7 @@
         "product": "dfsgs",
         "description": "sdfg",
         "category": "other",
-        "balance": 2,
+        "balance": 0,
         "price": "23.00"
     }
 },
@@ -94,8 +83,74 @@
         "product": "asdf",
         "description": "asdfsf",
         "category": "other",
+        "balance": 15,
+        "price": "3.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 11,
+    "fields": {
+        "product": "reag",
+        "description": "adfg",
+        "category": "equipment",
+        "balance": 21,
+        "price": "12.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 12,
+    "fields": {
+        "product": "sdfg",
+        "description": "sfdg",
+        "category": "information",
+        "balance": 0,
+        "price": "1234.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 13,
+    "fields": {
+        "product": "ddgsdf",
+        "description": "sdfgsdgr",
+        "category": "other",
+        "balance": 0,
+        "price": "12.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 14,
+    "fields": {
+        "product": "jacket N5",
+        "description": "for rainy wheather",
+        "category": "other",
+        "balance": 11,
+        "price": "123.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 15,
+    "fields": {
+        "product": "ball",
+        "description": "for football",
+        "category": "other",
         "balance": 123,
-        "price": "23.00"
+        "price": "34.00"
+    }
+},
+{
+    "model": "webapp.product",
+    "pk": 16,
+    "fields": {
+        "product": "jiuce",
+        "description": "for drink",
+        "category": "other",
+        "balance": 123,
+        "price": "4.00"
     }
 }
 ]
