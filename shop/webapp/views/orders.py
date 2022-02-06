@@ -33,13 +33,9 @@ class OrderCreateView(View):
                     if product.balance < value:
                         raise ValueError(f'В магазине нет столько товара. Вы хотите {value} а в наличии только {product.balance}')
         username = self.request.POST.get('username')
-        print(username)
         address = self.request.POST.get('address')
         phone = self.request.POST.get('phone')
         order = Order(username=username, address=address, phone=phone)
-        # order = Order()
-        # order.username = username
-        print(order.username)
         order.save()
         for product in products:
 
