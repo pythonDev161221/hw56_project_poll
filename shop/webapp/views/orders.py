@@ -7,6 +7,9 @@ from webapp.models import Product, ProductBasket
 class OrderCreateView(View):
     def post(self, request, *args, **kwargs):
         product_basket = self.request.POST.get('productbasket_list')
+        print(product_basket)
+        if product_basket == '<QuerySet []>':
+            return redirect('product_basket_list_view')
         product_basket = product_basket.split('[')[1]
         product_basket = product_basket.split(']')[0]
         product_basket = product_basket.split(',')
@@ -33,4 +36,4 @@ class OrderCreateView(View):
                     product.balance -= value
                     product.save()
         ProductBasket.objects.all().delete()
-        return redirect('product_list_view')
+        return redirect('product_basket_list_view')
