@@ -35,6 +35,8 @@ class OrderCreateView(View):
         username = self.request.POST.get('username')
         address = self.request.POST.get('address')
         phone = self.request.POST.get('phone')
+        if username == '' or address == '' or phone == '':
+            raise ValueError
         order = Order(username=username, address=address, phone=phone)
         order.save()
         for product in products:
