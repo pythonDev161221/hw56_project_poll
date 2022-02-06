@@ -1,7 +1,8 @@
 from django.shortcuts import redirect
 from django.views import View
 
-from webapp.models import Product, ProductBasket
+from webapp.forms import OrderForm
+from webapp.models import Product, ProductBasket, Order, OrderProduct
 
 
 class OrderCreateView(View):
@@ -24,13 +25,33 @@ class OrderCreateView(View):
             b = i.split(':')[1].strip()
             dict_c[a] = b
         products = Product.objects.all()
+
         for product in products:
             for key, value in dict_c.items():
                 if product.product == key:
                     value = int(value)
                     if product.balance < value:
-                        raise ValueError(f'В магазине нет столько. Вы хотите {value} а в наличии только {product.balance}')
+                        raise ValueError(f'В магазине нет столько товара. Вы хотите {value} а в наличии только {product.balance}')
+        username = self.request.POST.get('username')
+        print(username)
+        address = self.request.POST.get('address')
+        phone = self.request.POST.get('phone')
+        order = Order(username=username, address=address, phone=phone)
+        # order = Order()
+        # order.username = username
+        print(order.username)
+        order.save()
+        for product in products:
+
+            for key, value in dict_c.items():
+                if product.product == key:
+                    order_product = OrderProduct()
+                    order_product.product = product
+                    order_product.order = order
+                    value = int(value)
+                    order_product.volume = value
                     product.balance -= value
+                    order_product.save()
                     product.save()
         ProductBasket.objects.all().delete()
         return redirect('product_basket_list_view')

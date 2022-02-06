@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from webapp.models import Product, Order
+from webapp.models import Product, Order, OrderProduct
 
 
 class ProductForm(forms.ModelForm):
@@ -26,3 +26,9 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['username', 'phone', 'address']
+
+
+# class OrderProductForm(forms.ModelForm):
+#     class Meta:
+#         model = OrderProduct
+#         fields = []
