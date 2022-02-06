@@ -33,6 +33,7 @@ class ProductBasketListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         kwargs = super().get_context_data(object_list=object_list, kwargs=kwargs)
         products = ProductBasket.objects.all()
+
         summ = []
         a = 0
         for product in products:

@@ -61,6 +61,26 @@ from webapp.models import Product, ProductBasket, Order, OrderProduct
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderForm
+    # template_name = 'product_basket/product_basket_list_view.html'
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     kwargs = super().get_context_data(object_list=object_list, kwargs=kwargs)
+    #     products = ProductBasket.objects.all()
+    #     kwargs['productbasket_list'] = products
+    #     summ = []
+    #     a = 0
+    #     for product in products:
+    #         total = product.product.price * product.volume
+    #         a += total
+    #         vol = product.volume
+    #         p_id = product.id
+    #         total = {'p_id': p_id, 'total': total, 'vol': vol}
+    #         summ.append(total)
+    #     kwargs['summ'] = summ
+    #     kwargs['total'] = a
+    #     kwargs['form'] = OrderForm()
+
+        # return kwargs
 
     def form_valid(self, form):
         product_basket = self.request.POST.get('productbasket_list')

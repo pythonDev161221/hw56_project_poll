@@ -1,7 +1,7 @@
 from django.urls import path
 
 from webapp.views import ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView, \
-    AddProductBasketView, ProductBasketListView, ProductBasketDeleteView, OrderCreateView
+    AddProductBasketView, ProductBasketDeleteView, OrderCreateView, ProductBasketListView
 
 urlpatterns = [
     path('', ProductListView.as_view(), name='product_list_view'),
