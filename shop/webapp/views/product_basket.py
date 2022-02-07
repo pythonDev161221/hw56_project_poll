@@ -27,6 +27,26 @@ class AddProductBasketView(View):
         return redirect('product_list_view')
 
 
+class AddMultipleProductBasketView(View):
+    def get(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs.get('pk'))
+
+        product_quantity = int(self.request.GET.get('product_quantity'))
+        if product.balance < product_quantity or product_quantity < 1:
+            return redirect('product_list_view')
+        if product.products_basket.values():
+            basket = product.products_basket.values()
+            id = basket[0].get('id')
+            volume = basket[0].get('volume')
+            if product.balance > volume:
+                ProductBasket.objects.filter(id__exact=id).delete()
+                ProductBasket(product=product, volume=volume+product_quantity).save()
+        else:
+            product_basket = ProductBasket(product=product, volume=product_quantity)
+            product_basket.save()
+        return redirect('product_list_view')
+
+
 class ProductBasketListView(ListView):
     template_name = 'product_basket/product_basket_list_view.html'
     model = ProductBasket
@@ -77,3 +97,4 @@ class ProductBasketOneDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("product_basket_list_view")
+

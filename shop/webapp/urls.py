@@ -1,7 +1,8 @@
 from django.urls import path
 
 from webapp.views import ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView, \
-    AddProductBasketView, ProductBasketDeleteView, OrderCreateView, ProductBasketListView, ProductBasketOneDeleteView
+    AddProductBasketView, ProductBasketDeleteView, OrderCreateView, ProductBasketListView, ProductBasketOneDeleteView, \
+    AddMultipleProductBasketView
 
 urlpatterns = [
     path('', ProductListView.as_view(), name='product_list_view'),
@@ -14,5 +15,7 @@ urlpatterns = [
     path('basket/<int:pk>/delete/', ProductBasketDeleteView.as_view(), name='product_basket_delete_view'),
     path('order/create/', OrderCreateView.as_view(), name='order_create_view'),
     path('basket/<int:pk>/delete_one/', ProductBasketOneDeleteView.as_view(), name='product_basket_one_delete_view'),
+    path('product/<int:pk>/basket/add/multiple/', AddMultipleProductBasketView.as_view(),
+         name='add_multiple_product_basket_view'),
 
 ]
