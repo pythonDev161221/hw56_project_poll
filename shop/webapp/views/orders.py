@@ -112,7 +112,6 @@ class OrderCreateView(CreateView):
                             f'а в наличии только {product.balance}')
         order = form.save()
         for product in products:
-
             for key, value in dict_c.items():
                 if product.product == key:
                     order_product = OrderProduct()
@@ -124,6 +123,9 @@ class OrderCreateView(CreateView):
                     order_product.save()
                     product.save()
         ProductBasket.objects.all().delete()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
