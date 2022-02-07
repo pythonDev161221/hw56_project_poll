@@ -20,6 +20,8 @@
     {% endfor %}
     <a href="{% url 'product_basket_delete_view' product.pk %}">
         <button type="button">Delete</button></a>
+    <a href="{% url 'product_basket_one_delete_view' product.pk %}">
+        <button type="button">Delete one item</button></a>
     </div>
     {% endfor %}
     <h5>Итого {{ total }}</h5>

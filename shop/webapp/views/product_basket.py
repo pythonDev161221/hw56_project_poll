@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -59,3 +60,20 @@ class ProductBasketDeleteView(DeleteView):
     def get_success_url(self):
         return reverse("product_basket_list_view")
 
+
+class ProductBasketOneDeleteView(DeleteView):
+    model = ProductBasket
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        print(self.object)
+        print(self.object.volume)
+        if self.object.volume <= 1:
+            return redirect(reverse('product_basket_delete_view', kwargs=kwargs))
+        self.object.volume = self.object.volume - 1
+        self.object.save()
+        return HttpResponseRedirect(success_url)
+
+    def get_success_url(self):
+        return reverse("product_basket_list_view")

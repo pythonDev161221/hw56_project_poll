@@ -108,8 +108,7 @@ class OrderCreateView(CreateView):
                     value = int(value)
                     if product.balance < value:
                         raise ValueError(
-                            f'В магазине нет столько товара. Вы хотите {value} '
-                            f'а в наличии только {product.balance}')
+                            f'В магазине нет столько товара. Вы хотите {value} а в наличии только {product.balance}')
         order = form.save()
         for product in products:
             for key, value in dict_c.items():
