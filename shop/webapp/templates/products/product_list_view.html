@@ -30,7 +30,6 @@
 
         <button type="button">To Basket</button></a>
     <form action="{% url 'add_multiple_product_basket_view' product.pk %}" method="get" >
-    {% csrf_token %}
         <label>
             <input type="number" name="product_quantity" style="width: 50px">
         </label>

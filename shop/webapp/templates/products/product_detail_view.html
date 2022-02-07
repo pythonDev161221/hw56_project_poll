@@ -11,7 +11,7 @@
   <a class="nav-link" aria-current="page" href="{% url 'product_delete_view' product.pk %}">Delete</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" href="{% url 'product_basket_add_view' product.pk %}">To Basket</a>
+  <a class="nav-link" aria-current="page" href="{% url 'product_basket_list_view' %}">Basket</a>
 </li>
 {% endblock %}
 
@@ -24,4 +24,10 @@
 
     <a href="{% url 'product_basket_add_view' product.pk %}">
         <button type="button">To Basket</button></a>
+    <form action="{% url 'add_multiple_product_basket_view' product.pk %}" method="get" >
+        <label>
+            <input type="number" name="product_quantity" style="width: 50px">
+        </label>
+        <input type="submit" value="items to basket">
+    </form>
 {% endblock %}
