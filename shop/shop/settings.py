@@ -114,7 +114,8 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'product_list_view'
+LOGIN_REDIRECT_URL = 'webapp:product_list_view'
+LOGOUT_REDIRECT_URL = 'webapp:product_list_view'
 
 
 # Static files (CSS, JavaScript, Images)

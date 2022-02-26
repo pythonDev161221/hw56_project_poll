@@ -13,7 +13,7 @@ class AddProductBasketView(View):
     def get(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
         if product.balance <= 0:
-            return redirect('product_list_view')
+            return redirect('webapp:product_list_view')
         if product.products_basket.values():
             basket = product.products_basket.values()
             id = basket[0].get('id')
@@ -24,16 +24,16 @@ class AddProductBasketView(View):
         else:
             product_basket = ProductBasket(product=product, volume=1)
             product_basket.save()
-        return redirect('product_list_view')
+        return redirect('webapp:product_list_view')
 
 
 class AddMultipleProductBasketView(View):
     def get(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
-
-        product_quantity = int(self.request.GET.get('product_quantity'))
+        print(type(self.request.GET.get('webapp:product_quantity')))
+        product_quantity = int(self.request.GET.get('webapp:product_quantity'))
         if product.balance < product_quantity or product_quantity < 1:
-            return redirect('product_list_view')
+            return redirect('webapp:product_list_view')
         if product.products_basket.values():
             basket = product.products_basket.values()
             id = basket[0].get('id')
@@ -44,7 +44,7 @@ class AddMultipleProductBasketView(View):
         else:
             product_basket = ProductBasket(product=product, volume=product_quantity)
             product_basket.save()
-        return redirect('product_list_view')
+        return redirect('webapp:product_list_view')
 
 
 class ProductBasketListView(ListView):
@@ -78,7 +78,7 @@ class ProductBasketDeleteView(DeleteView):
         return super().delete(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse("product_basket_list_view")
+        return reverse("webapp:product_basket_list_view")
 
 
 class ProductBasketOneDeleteView(DeleteView):
@@ -90,11 +90,11 @@ class ProductBasketOneDeleteView(DeleteView):
         print(self.object)
         print(self.object.volume)
         if self.object.volume <= 1:
-            return redirect(reverse('product_basket_delete_view', kwargs=kwargs))
+            return redirect(reverse('webapp:product_basket_delete_view', kwargs=kwargs))
         self.object.volume = self.object.volume - 1
         self.object.save()
         return HttpResponseRedirect(success_url)
 
     def get_success_url(self):
-        return reverse("product_basket_list_view")
+        return reverse("webapp:product_basket_list_view")
 

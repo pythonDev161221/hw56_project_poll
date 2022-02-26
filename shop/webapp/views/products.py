@@ -53,4 +53,4 @@ class ProductUpdateView(UpdateView):
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'products/product_delete_view.html'
-    success_url = reverse_lazy('product_list_view')
+    success_url = reverse_lazy('webapp:product_list_view')

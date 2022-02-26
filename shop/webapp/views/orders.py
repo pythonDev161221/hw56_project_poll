@@ -85,7 +85,7 @@ class OrderCreateView(CreateView):
     def form_valid(self, form):
         product_basket = self.request.POST.get('productbasket_list')
         if product_basket == '<QuerySet []>':
-            return redirect('product_basket_list_view')
+            return redirect('webapp:product_basket_list_view')
         product_basket = product_basket.split('[')[1]
         product_basket = product_basket.split(']')[0]
         product_basket = product_basket.split(',')
@@ -128,4 +128,4 @@ class OrderCreateView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('product_basket_list_view')
+        return reverse('webapp:product_basket_list_view')

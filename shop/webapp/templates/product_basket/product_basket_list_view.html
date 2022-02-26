@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block nav %}
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" href="{% url 'product_list_view' %}">ProductList</a>
+  <a class="nav-link" aria-current="page" href="{% url 'webapp:product_list_view' %}">ProductList</a>
 </li>
 {% endblock %}
 
@@ -11,26 +11,21 @@
     {% for product in productbasket_list %}
     <div>
     {{ product.product.product }} : {{ product.product.price }} сом
-{#        <input type="number" name="{{ product.product.product }}" value="{{ product.volume }}">#}
         ***
     {% for sum in summ %}
         {% if sum.p_id == product.id %}
         количество: {{ sum.vol }} | Сумма: {{ sum.total }}
         {% endif %}
     {% endfor %}
-    <a href="{% url 'product_basket_delete_view' product.pk %}">
+    <a href="{% url 'webapp:product_basket_delete_view' product.pk %}">
         <button type="button">Delete</button></a>
-    <a href="{% url 'product_basket_one_delete_view' product.pk %}">
+    <a href="{% url 'webapp:product_basket_one_delete_view' product.pk %}">
         <button type="button">Delete one item</button></a>
     </div>
     {% endfor %}
     <h5>Итого {{ total }}</h5>
-    <form action="{% url 'order_create_view' %}" method="post">
+    <form action="{% url 'webapp:order_create_view' %}" method="post">
     {% csrf_token %}
-{#        <p>name: <input type="text" name="username"></p>#}
-{#        <p>phone: <input type="number" name="phone"></p>#}
-{#        <p>address: <input type="text" name="address"></p>#}
-{#        <input type="submit" value="Оформить заказ">#}
         {% include 'partial/form.html' with button_text="Оформить заказ" %}
         <input type="hidden" name="productbasket_list" value="{{ productbasket_list }}">
     </form>

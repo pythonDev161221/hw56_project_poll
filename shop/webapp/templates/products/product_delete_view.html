@@ -2,7 +2,7 @@
 
 {% block nav %}
 <li class="nav-item">
-  <a class="nav-link" aria-current="page" href="{% url 'product_list_view' %}">ProductList</a>
+  <a class="nav-link" aria-current="page" href="{% url 'webapp:product_list_view' %}">ProductList</a>
 </li>
 {% endblock %}
 
@@ -12,5 +12,5 @@
     {% csrf_token %}
         <input type="submit" value="Yes">
     </form>
-    <a href="{% url 'product_list_view' %}">No</a>
+    <a href="{% url 'webapp:product_list_view' %}">No</a>
 {% endblock %}
