@@ -30,8 +30,8 @@ class AddProductBasketView(View):
 class AddMultipleProductBasketView(View):
     def get(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
-        print(type(self.request.GET.get('webapp:product_quantity')))
-        product_quantity = int(self.request.GET.get('webapp:product_quantity'))
+        print(type(self.request.GET.get('product_quantity')))
+        product_quantity = int(self.request.GET.get('product_quantity'))
         if product.balance < product_quantity or product_quantity < 1:
             return redirect('webapp:product_list_view')
         if product.products_basket.values():

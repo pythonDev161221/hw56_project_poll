@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Create your models here.
@@ -7,6 +8,9 @@ from django.db import models
 from django.urls import reverse
 
 from webapp.validators import MinValueValidator
+
+
+User = get_user_model()
 
 CHOOSE_CATEGORY = [('other', 'разное'), ('clothes', 'одежда'), ('equipment', 'оборудование'), ('information', 'информативные')]
 
@@ -30,6 +34,8 @@ class ProductBasket(models.Model):
     product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE, related_name='products_basket',
                                 verbose_name='Корзина')
     volume = models.PositiveIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_basket',
+                             null=True, blank=False)
 
     def __str__(self):
         return f'{self.product.product}: {self.volume}'
@@ -48,3 +54,4 @@ class Order(models.Model):
     phone = models.CharField(max_length=100, null=False, blank=False)
     address = models.CharField(max_length=200, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
+

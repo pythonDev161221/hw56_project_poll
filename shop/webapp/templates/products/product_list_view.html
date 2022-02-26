@@ -29,12 +29,12 @@
     <a href="{% url 'webapp:product_basket_add_view' product.pk %}">
 
         <button type="button">To Basket</button></a>
-{#    <form action="{% url 'webapp:add_multiple_product_basket_view' product.pk %}" method="get" >#}
-{#        <label>#}
-{#            <input type="number" name="product_quantity" style="width: 50px">#}
-{#        </label>#}
-{#        <input type="submit" value="items to basket">#}
-{#    </form>#}
+    <form action="{% url 'webapp:add_multiple_product_basket_view' product.pk %}" method="get" >
+        <label>
+            <input type="number" name="product_quantity" style="width: 50px">
+        </label>
+        <input type="submit" value="items to basket">
+    </form>
     </p>
 {% endfor %}
 

@@ -13,14 +13,13 @@ class RegisterView(CreateView):
     model = User
     template_name = "registration.html"
     form_class = MyUserCreationForm
-    # success_url = reverse_lazy("webapp:product_list_view")
+    success_url = reverse_lazy("webapp:product_list_view")
 
     def form_valid(self, form):
         user = form.save()
         # Profile.objects.create(user=user)
         login(self.request, user)
-        return redirect("webapp:product_list_view")
-        # return super().form_valid()
+        return redirect(self.success_url)
         # return redirect(self.get_success_url())
 
     # def get_success_url(self):
