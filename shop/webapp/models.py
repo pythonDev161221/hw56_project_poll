@@ -35,7 +35,7 @@ class ProductBasket(models.Model):
                                 verbose_name='Корзина')
     volume = models.PositiveIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_basket',
-                             null=True, blank=False)
+                             null=True, blank=False, default=None)
 
     def __str__(self):
         return f'{self.product.product}: {self.volume}'
