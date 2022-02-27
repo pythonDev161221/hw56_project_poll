@@ -7,7 +7,7 @@
 
 {% block content %}
     <h3>Products in Basket</h3>
-
+{% if productbasket_list %}
     {% for product in productbasket_list %}
     <div>
     {{ product.product.product }} : {{ product.product.price }} сом
@@ -24,10 +24,13 @@
     </div>
     {% endfor %}
     <h5>Итого {{ total }}</h5>
+
     <form action="{% url 'webapp:order_create_view' %}" method="post">
     {% csrf_token %}
         {% include 'partial/form.html' with button_text="Оформить заказ" %}
         <input type="hidden" name="productbasket_list" value="{{ productbasket_list }}">
     </form>
-
+{% else %}
+    <p>Basket is empty</p>
+{% endif %}
 {% endblock %}

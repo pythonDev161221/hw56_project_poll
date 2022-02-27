@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -11,6 +12,7 @@ from webapp.models import Product, ProductBasket
 class AddProductBasketView(View):
 
     def get(self, request, *args, **kwargs):
+        user = self.request.user
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
         if product.balance <= 0:
             return redirect('webapp:product_list_view')
@@ -20,15 +22,16 @@ class AddProductBasketView(View):
             volume = basket[0].get('volume')
             if product.balance > volume:
                 ProductBasket.objects.filter(id__exact=id).delete()
-                ProductBasket(product=product, volume=volume+1).save()
+                ProductBasket(product=product, volume=volume+1, user=user).save()
         else:
-            product_basket = ProductBasket(product=product, volume=1)
+            product_basket = ProductBasket(product=product, volume=1, user=user)
             product_basket.save()
         return redirect('webapp:product_list_view')
 
 
 class AddMultipleProductBasketView(View):
     def get(self, request, *args, **kwargs):
+        user = self.request.user
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
         print(type(self.request.GET.get('product_quantity')))
         product_quantity = int(self.request.GET.get('product_quantity'))
@@ -40,9 +43,9 @@ class AddMultipleProductBasketView(View):
             volume = basket[0].get('volume')
             if product.balance > volume:
                 ProductBasket.objects.filter(id__exact=id).delete()
-                ProductBasket(product=product, volume=volume+product_quantity).save()
+                ProductBasket(product=product, volume=volume+product_quantity, user=user).save()
         else:
-            product_basket = ProductBasket(product=product, volume=product_quantity)
+            product_basket = ProductBasket(product=product, volume=product_quantity, user=user)
             product_basket.save()
         return redirect('webapp:product_list_view')
 
@@ -52,9 +55,10 @@ class ProductBasketListView(ListView):
     model = ProductBasket
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        kwargs = super().get_context_data(object_list=object_list, kwargs=kwargs)
-        products = ProductBasket.objects.all()
-
+        kwargs = super().get_context_data(object_list=object_list,
+                                          kwargs=kwargs)
+        user = self.request.user
+        products = user.products_basket.all()
         summ = []
         a = 0
         for product in products:
@@ -67,6 +71,7 @@ class ProductBasketListView(ListView):
         kwargs['summ'] = summ
         kwargs['total'] = a
         kwargs['form'] = OrderForm()
+        kwargs['productbasket_list'] = products
 
         return kwargs
 
@@ -87,8 +92,6 @@ class ProductBasketOneDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         success_url = self.get_success_url()
-        print(self.object)
-        print(self.object.volume)
         if self.object.volume <= 1:
             return redirect(reverse('webapp:product_basket_delete_view', kwargs=kwargs))
         self.object.volume = self.object.volume - 1
@@ -97,4 +100,3 @@ class ProductBasketOneDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse("webapp:product_basket_list_view")
-
