@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h4>Данные заказчика:</h4>
+    <p>Пользователь: {{ order.user }}</p>
+    <p>Адресс заказа: {{ order.address }}</p>
+    <p>Номер заказа: {{ order.phone }}</p>
+
+    <h4>Продукты:</h4>
+    {% for product in order.products.all %}
+        <div>
+        Название продукта: {{ product }}
+        </div>
+
+    {% endfor %}
+{% endblock content %}

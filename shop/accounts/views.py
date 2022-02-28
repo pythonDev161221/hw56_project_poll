@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from accounts.forms import MyUserCreationForm
+from webapp.models import Order
 
 User = get_user_model()
 
@@ -29,3 +30,18 @@ class RegisterView(CreateView):
     #     if not next_url:
     #         next_url = reverse('webapp:index')
     #     return next_url
+
+
+class UserBasketDetailView(DetailView):
+    model = User
+    template_name = 'user_basket_detail_view.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        return kwargs
+
+
+class UserOrderDetailView(DetailView):
+    model = Order
+    template_name = 'user_order_detail_view.html'
+

@@ -16,9 +16,9 @@ admin.site.register(OrderProduct)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'username', 'phone', 'created_at']
+    list_display = ['pk', 'phone', 'created_at']
     search_fields = ['-created_at']
-    fields = ['username', 'address', 'phone', 'created_at']
+    fields = ['address', 'phone', 'created_at']
     readonly_fields = ['created_at']
 
 

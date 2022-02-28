@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>{{ user.username }}</h3>
+    {{ user.orders }}
+    {% for order in user.orders.all %}
+        <p>
+        <a href="{% url 'accounts:user_order_detail_view' order.pk %}">{{ order }}</a>
+        </p>
+    {% endfor %}
+{% endblock content %}

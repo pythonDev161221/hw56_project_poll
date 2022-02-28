@@ -50,7 +50,8 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     products = models.ManyToManyField('webapp.Product',
                 related_name='orders', through='webapp.OrderProduct')
-    username = models.CharField(max_length=200, null=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,
+                             related_name="orders")
     phone = models.CharField(max_length=100, null=False, blank=False)
     address = models.CharField(max_length=200, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
