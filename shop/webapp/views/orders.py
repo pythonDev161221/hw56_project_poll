@@ -20,7 +20,10 @@ class OrderCreateView(CreateView):
                     f'В магазине нет столько товара. Вы хотите {product_basket_one.volume}'
                     f' а в наличии только {product_basket_one.product.balance}')
         order = form.save()
-        order.user = self.request.user
+        try:
+            order.user = self.request.user
+        except:
+            pass
         order.save()
         for product_basket_one in product_basket:
             order_product = OrderProduct.objects.create(product=product_basket_one.product,

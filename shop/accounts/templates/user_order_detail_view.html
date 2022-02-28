@@ -9,7 +9,9 @@
     <h4>Продукты:</h4>
     {% for product in order.products.all %}
         <div>
-        Название продукта: {{ product }}
+        Название продукта: {{ product.product }} | Стоимость: {{ product.price }}
         </div>
+
+
     {% endfor %}
 {% endblock content %}
