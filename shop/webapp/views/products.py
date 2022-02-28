@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
@@ -22,38 +23,28 @@ class ProductListView(SearchView):
         queryset = queryset.filter(balance__gt=0).order_by('category', 'product')
         return queryset
 
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     kwargs = super().get_context_data(**kwargs)
-    #     form = SearchForm()
-    #     kwargs['form'] = form
-    #     print(kwargs)
-    #     # if self.kwargs.get('search'):
-    #
-    #     return kwargs
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     self.request.session['key'] = "1234"
-    #     return super(ProductListView, self).get_context_data(**kwargs)
-
 
 class ProductDetailView(DetailView):
     template_name = 'products/product_detail_view.html'
     model = Product
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'products/product_create_view.html'
+    permission_required = 'webapp.add_product'
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'products/product_update_view.html'
+    permission_required = 'webapp.change_product'
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     template_name = 'products/product_delete_view.html'
     success_url = reverse_lazy('webapp:product_list_view')
+    permission_required = 'webapp.delete_product'

@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block nav %}
+    {% if user.is_authenticated %}
 <li class="nav-item">
   <a class="nav-link" aria-current="page" href="{% url 'webapp:product_create_view' %}">CreateProduct</a>
 </li>
+    {% endif %}
 <li class="nav-item">
   <a class="nav-link" aria-current="page" href="{% url 'webapp:product_basket_list_view' %}">Basket</a>
 </li>
@@ -24,8 +26,10 @@
     <a href="{% url 'webapp:product_detail_view' product.pk %}">
     {{ product.product }}: {{ product.price }} сом. В наличии: {{ product.balance }}
     </a> ***
+        {% if user.is_authenticated %}
     <a href="{% url 'webapp:product_update_view' product.pk %}">Update</a> |
     <a href="{% url 'webapp:product_delete_view' product.pk %}">Delete</a>
+        {% endif %}
     <a href="{% url 'webapp:product_basket_add_view' product.pk %}">
 
         <button type="button">To Basket</button></a>
