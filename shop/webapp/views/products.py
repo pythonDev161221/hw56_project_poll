@@ -1,8 +1,6 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+
 
 from webapp.forms import ProductForm, SearchForm
 from webapp.models import Product
@@ -16,6 +14,8 @@ class ProductListView(SearchView):
     paginate_by = 5
     paginate_orphans = 1
     search_fields = ["product__icontains", "description__icontains"]
+
+
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -31,6 +31,9 @@ class ProductListView(SearchView):
     #
     #     return kwargs
 
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     self.request.session['key'] = "1234"
+    #     return super(ProductListView, self).get_context_data(**kwargs)
 
 
 class ProductDetailView(DetailView):

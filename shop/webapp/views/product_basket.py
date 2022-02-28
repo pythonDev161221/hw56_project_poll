@@ -12,7 +12,7 @@ from webapp.models import Product, ProductBasket
 class AddProductBasketView(View):
 
     def get(self, request, *args, **kwargs):
-        # user = self.request.user
+        basket_session = request.session.get('product_basket', [])
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
         if product.balance <= 0:
             return redirect('webapp:product_list_view')
@@ -21,20 +21,24 @@ class AddProductBasketView(View):
             id = basket[0].get('id')
             volume = basket[0].get('volume')
             if product.balance > volume:
-                ProductBasket.objects.filter(id__exact=id).delete()
-                ProductBasket(product=product, volume=volume+1).save()
-                # ProductBasket(product=product, volume=volume+1, user=user).save()
-
+                # ProductBasket.objects.filter(id__exact=id).delete()
+                # product_basket = ProductBasket.objects.create(product=product, volume=volume+1)
+                product_basket = ProductBasket.objects.get(id=id)
+                product_basket.volume += 1
+                product_basket.save()
+                basket_session.append(product_basket.pk)
+                request.session['product_basket'] = basket_session
+                print(basket_session)
         else:
-            product_basket = ProductBasket(product=product, volume=1)
-            # product_basket = ProductBasket(product=product, volume=1, user=user)
-            product_basket.save()
+            product_basket = ProductBasket.objects.create(product=product, volume=1)
+            basket_session.append(product_basket.pk)
+            request.session['product_basket'] = basket_session
         return redirect('webapp:product_list_view')
 
 
 class AddMultipleProductBasketView(View):
     def get(self, request, *args, **kwargs):
-        # user = self.request.user
+        basket_session = request.session.get('product_basket', [])
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
         product_quantity = int(self.request.GET.get('product_quantity'))
         if product.balance < product_quantity or product_quantity < 1:
@@ -44,13 +48,15 @@ class AddMultipleProductBasketView(View):
             id = basket[0].get('id')
             volume = basket[0].get('volume')
             if product.balance > volume:
-                ProductBasket.objects.filter(id__exact=id).delete()
-                ProductBasket(product=product, volume=volume+product_quantity).save()
-                # ProductBasket(product=product, volume=volume+product_quantity, user=user).save()
+                product_basket = ProductBasket.objects.get(id=id)
+                product_basket.volume += product_quantity
+                product_basket.save()
+                basket_session.append(product_basket.pk)
+                request.session['product_basket'] = basket_session
         else:
-            product_basket = ProductBasket(product=product, volume=product_quantity)
-            # product_basket = ProductBasket(product=product, volume=product_quantity, user=user)
-            product_basket.save()
+            product_basket = ProductBasket.objects.create(product=product, volume=product_quantity)
+            basket_session.append(product_basket.pk)
+            request.session['product_basket'] = basket_session
         return redirect('webapp:product_list_view')
 
 
@@ -61,9 +67,9 @@ class ProductBasketListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         kwargs = super().get_context_data(object_list=object_list,
                                           kwargs=kwargs)
-        # user = self.request.user
-        # products = user.products_basket.all()
-        products = ProductBasket.objects.all()
+
+        basket_session = self.request.session.get('product_basket', [])
+        products = ProductBasket.objects.filter(pk__in=basket_session)
 
         summ = []
         a = 0
