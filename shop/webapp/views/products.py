@@ -16,8 +16,6 @@ class ProductListView(SearchView):
     paginate_orphans = 1
     search_fields = ["product__icontains", "description__icontains"]
 
-
-
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(balance__gt=0).order_by('category', 'product')

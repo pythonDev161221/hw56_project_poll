@@ -12,28 +12,31 @@ class OrderCreateView(CreateView):
 
     def form_valid(self, form):
         basket_session = self.request.session.get('product_basket')
-        product_basket = ProductBasket.objects.filter(pk__in=basket_session)
+        pk_session = self.request.session.get('pk')
+        products_basket = ProductBasket.objects.filter(
+            pk__in=basket_session, session__exact=pk_session
+        )
 
-        for product_basket_one in product_basket:
-            if product_basket_one.product.balance < product_basket_one.volume:
+        for product_basket in products_basket:
+            if product_basket.product.balance < product_basket.volume:
                 raise ValueError(
-                    f'В магазине нет столько товара. Вы хотите {product_basket_one.volume}'
-                    f' а в наличии только {product_basket_one.product.balance}')
+                    f'В магазине нет столько товара. Вы хотите {product_basket.volume}'
+                    f' а в наличии только {product_basket.product.balance}')
         order = form.save()
         try:
             order.user = self.request.user
         except:
             pass
         order.save()
-        for product_basket_one in product_basket:
-            order_product = OrderProduct.objects.create(product=product_basket_one.product,
-                                                        volume=product_basket_one.volume,
+        for product_basket in products_basket:
+            order_product = OrderProduct.objects.create(product=product_basket.product,
+                                                        volume=product_basket.volume,
                                                         order=order)
             order_product.save()
-            product_basket_one.product.balance -= product_basket_one.volume
-            product_basket_one.product.save()
+            product_basket.product.balance -= product_basket.volume
+            product_basket.product.save()
 
-        ProductBasket.objects.filter(pk__in=basket_session).delete()
+        ProductBasket.objects.filter(pk__in=basket_session, session__exact=pk_session).delete()
         self.request.session['product_basket'] = []
         return HttpResponseRedirect(self.get_success_url())
 

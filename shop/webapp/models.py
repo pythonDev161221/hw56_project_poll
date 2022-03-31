@@ -34,8 +34,7 @@ class ProductBasket(models.Model):
     product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE, related_name='products_basket',
                                 verbose_name='Корзина')
     volume = models.PositiveIntegerField()
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_basket',
-    #                          null=True, blank=False, default=None)
+    session = models.CharField(max_length=32, null=True, blank=True)
 
     def __str__(self):
         return f'{self.product.product}: {self.volume}'
