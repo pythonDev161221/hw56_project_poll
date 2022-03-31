@@ -49,7 +49,7 @@ class OrderProduct(models.Model):
 class Order(models.Model):
     products = models.ManyToManyField('webapp.Product',
                 related_name='orders', through='webapp.OrderProduct')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1,
                              related_name="orders")
     phone = models.CharField(max_length=100, null=False, blank=False)
     address = models.CharField(max_length=200, null=False, blank=False)

@@ -28,7 +28,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$320000$Rtnuq2ANW7MLKuhI2uJnv6$HiA8f470LJztOISBt/M4GHCXXUcBGCI6W1MmYBNhTGo=",
-    "last_login": "2022-02-28T12:35:15.379Z",
+    "last_login": "2022-03-31T10:03:05.218Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -46,7 +46,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$320000$4eXZNlr4t2FqcCgSVx6pHu$ONe3GHPc7tFn5dVRO+Vacp5d7F2sLzLGsPyqcG0b/FU=",
-    "last_login": "2022-02-28T12:36:38.399Z",
+    "last_login": "2022-03-31T10:02:58.420Z",
     "is_superuser": false,
     "username": "aaa",
     "first_name": "aaa",
