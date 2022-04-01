@@ -47,7 +47,7 @@ class OrderProduct(models.Model):
 
 
 class Order(models.Model):
-    # order_products = models.ManyToManyField('webapp.OrderProduct',
+    # order_products = models.ManyToManyField('webapp.Product',
     #             related_name='orders', through='webapp.OrderProduct')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1,
                              related_name="orders")
