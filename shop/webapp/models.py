@@ -42,13 +42,13 @@ class ProductBasket(models.Model):
 
 class OrderProduct(models.Model):
     product = models.ForeignKey('webapp.Product', on_delete=models.CASCADE)
-    order = models.ForeignKey('webapp.Order', on_delete=models.CASCADE)
+    order = models.ForeignKey('webapp.Order', on_delete=models.CASCADE, related_name='order_products')
     volume = models.PositiveIntegerField()
 
 
 class Order(models.Model):
-    products = models.ManyToManyField('webapp.Product',
-                related_name='orders', through='webapp.OrderProduct')
+    # order_products = models.ManyToManyField('webapp.OrderProduct',
+    #             related_name='orders', through='webapp.OrderProduct')
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1,
                              related_name="orders")
     phone = models.CharField(max_length=100, null=False, blank=False)
